@@ -1,0 +1,32 @@
+﻿<EditForm Model="novoProduto" OnValidSubmit="AdicionarProduto">
+    <DataAnnotationsValidator />
+
+    <label class="form-label">Nome</label>
+    <InputText class="form-control" @bind-Value="novoProduto.Nome" />
+    <ValidationMessage For="() => novoProduto.Nome" />
+
+    <label class="form-label">Preço</label>
+    <InputNumber class="form-control" @bind-Value="novoProduto.Preco"
+                 ParsingErrorMessage="O preço deve ser um número." />
+    <ValidationMessage For="() => novoProduto.Preco" />
+
+    <label class="form-label">Quantidade</label>
+    <InputNumber class="form-control" @bind-Value="novoProduto.Quantidade"
+                 ParsingErrorMessage="A quantidade deve ser um número." />
+    <ValidationMessage For="() => novoProduto.Quantidade" />
+
+    <button type="submit" class="btn btn-primary mt-2">Adicionar produto</button>
+</EditForm>
+
+@code {
+    private Produto novoProduto = new();
+
+    [Parameter]
+    public EventCallback<Produto> OnProdutoAdicionado { get; set; }
+
+    private async Task AdicionarProduto()
+    {
+        await OnProdutoAdicionado.InvokeAsync(novoProduto);
+        novoProduto = new();
+    }
+}

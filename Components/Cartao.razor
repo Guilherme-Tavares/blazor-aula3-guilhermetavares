@@ -1,0 +1,13 @@
+﻿<h3>@Titulo</h3>
+
+<div class="card card-body">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public string? Titulo { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

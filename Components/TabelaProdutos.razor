@@ -7,15 +7,17 @@
         </tr>
     </thead>
     <tbody>
-        @if (produtos.Count == 0)
+        @if (Produtos.Count == 0)
         {
             <tr>
-                <AvisoVazio Mensagem="Nenhum produto cadastrado" />
+                <td colspan="3">
+                    <AvisoVazio Mensagem="Nenhum produto cadastrado" />
+                </td>
             </tr>
         }
         else
         {
-            @foreach (var p in produtos)
+            @foreach (var p in Produtos)
             {
                 <tr>
                     <td>@p.Nome</td>
@@ -29,5 +31,5 @@
 
 @code {
     [Parameter]
-    public List<Produto> produtos { get; set; } = new();
+    public List<Produto> Produtos { get; set; } = new();
 }

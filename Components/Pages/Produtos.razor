@@ -2,76 +2,26 @@
 
 <PageTitle>Produtos</PageTitle>
 
-<h3>Produtos</h3>
+@* <h3>Produtos</h3> *@
 
 <div class="row">
 
     <div class="col-md-4">
-        <div class="card card-body">
-            <EditForm Model="novoProduto" OnValidSubmit="AdicionarProduto">
-                <DataAnnotationsValidator/>
-
-                <label class="form-label">Nome</label>
-                <InputText class="form-control" @bind-Value="novoProduto.Nome"/>
-                <ValidationMessage For="() => novoProduto.Nome"/>
-
-                <label class="form-label">Preço</label>
-                <InputNumber class="form-control" @bind-Value="novoProduto.Preco"
-                             ParsingErrorMessage="O preço deve ser um número."/>
-                <ValidationMessage For="() => novoProduto.Preco"/>
-
-                <label class="form-label">Quantidade</label>
-                <InputNumber class="form-control" @bind-Value="novoProduto.Quantidade"
-                             ParsingErrorMessage="A quantidade deve ser um número."/>
-                <ValidationMessage For="() => novoProduto.Quantidade"/>
-
-                <button type="submit" class="btn btn-primary mt-2">Adicionar produto</button>
-            </EditForm>
-        </div>
+        <Cartao Titulo="Produtos">
+            <FormProduto OnProdutoAdicionado="AdicionarProduto" />
+        </Cartao>
     </div>
 
     <div class="col-md-8">
-
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">Preço</th>
-                <th scope="col">Quantidade</th>
-            </tr>
-            </thead>
-            <tbody>
-            @if (produtos.Count == 0)
-            {
-                <tr>
-                    <AvisoVazio Mensagem="Nenhum produto cadastrado" />
-                </tr>
-            }
-            else
-            {
-                @foreach (var p in produtos)
-                {
-                    <tr>
-                        <td>@p.Nome</td>
-                        <td>R$@p.Preco</td>
-                        <td>@p.Quantidade un.</td>
-                    </tr>
-                }
-            }
-            </tbody>
-        </table>
+        <TabelaProdutos Produtos="produtos" />
     </div>
 </div>
 
 @code {
-    private Produto novoProduto = new();
-
     private List<Produto> produtos = new();
 
-    private void AdicionarProduto()
+    private void AdicionarProduto(Produto produto)
     {
-        produtos.Add(novoProduto);
-
-        novoProduto = new();
+        produtos.Add(produto);
     }
 }
